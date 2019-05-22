@@ -14,10 +14,12 @@ if k == 1:
     k = ''
 elif k == -1:
     k = '-'
+else:
+    k = f'{k}*'
 
 if b < 0:
     b = f'- {abs(b)}'
 else:
     b = f'+ {b}'
 
-print(f"Your function is Y = {k} * X {b}")
+print(f"Your function is Y = {k}X {b}")
