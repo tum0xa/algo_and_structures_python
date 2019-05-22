@@ -1,6 +1,6 @@
 # 1.	Найти сумму и произведение цифр трехзначного числа, которое вводит пользователь.
 
-in_number = int(input("Type a positive three digit number, please:"))
+in_number = int(input("Type a positive three digit number, please: "))
 
 if in_number > 999 or in_number < 100:
     print("Invalid input!")
