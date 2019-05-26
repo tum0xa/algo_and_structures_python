@@ -4,7 +4,7 @@ import string
 
 alphabet = list(string.ascii_lowercase)
 
-pos_of_letter = input("Type the position of a letter in the english alphabet: ")
+pos_of_letter = input("Type the position of a letter in the english alphabet (from 1 to 26): ")
 
 if pos_of_letter.isdecimal():
     pos_of_letter = int(pos_of_letter)
