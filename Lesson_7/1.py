@@ -10,16 +10,23 @@ from random import randint
 
 def bubble_sort(array):
     step = 0
+
     while step < len(array):
+        exchange = False
         for i in range(len(array) - step):
             if i < len(array) - step - 1:
                 if array[i] > array[i + 1]:
                     array[i + 1], array[i] = array[i], array[i + 1]
-        step += 1
+                    exchange = True
+        if not exchange:
+            break
+        else:
+            step += 1
+    # print(f"Quantity of a sort steps: {step}")
     return array
 
 
-SIZE_OF_ARRAY = 20
+SIZE_OF_ARRAY = 50
 
 unsort_array = [randint(-100, 100) for i in range(SIZE_OF_ARRAY)]
 
