@@ -7,6 +7,7 @@
 from memory_profiler import profile
 from random import randint
 
+
 @profile
 def bubble_sort(array):
     step = 0
@@ -32,6 +33,8 @@ unsort_array = [randint(-100, 100) for i in range(SIZE_OF_ARRAY)]
 
 print(f"Unsort array: {unsort_array}")
 print(f"Sort array: {bubble_sort(unsort_array)}")
+
+# Python 3.7.0 OS: Windows 10 x64
 
 
 # Line #    Mem usage    Increment   Line Contents

@@ -63,6 +63,8 @@ def function():
 
 function()
 
+# Python 3.7.0 OS: Windows 10 x64
+
 # Line #    Mem usage    Increment   Line Contents
 # ================================================
 # 53     35.1 MiB     35.1 MiB   @profile
