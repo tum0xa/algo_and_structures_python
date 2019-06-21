@@ -5,14 +5,10 @@
 from collections import Counter, deque
 
 
-# def num_letters_of_string(string=''):
-#     result = {}
-#     for symbol in string:
-#         result[symbol] = string.count(symbol)
-#     return result
-
-
 class Node:
+    node_list = []
+    code_dict = {}
+
     def __init__(self, value, letter='', left=None, right=None, code=''):
         self.left = left
         self.right = right
@@ -23,13 +19,14 @@ class Node:
 
     def __add__(self, other):
         if self.value > other.value:
-            other.code += '0'
-            self.code += '1'
+            other.add_code('0')
+            self.add_code('1')
             node = Node(self.value + other.value, left=other, right=self)
         else:
+            other.add_code('1')
+            self.add_code('0')
             node = Node(self.value + other.value, left=self, right=other)
-            other.code += '1'
-            self.code += '0'
+
         return node
 
     def __getitem__(self, index):
@@ -56,35 +53,40 @@ class Node:
     def get_code(self):
         return str(self.code)
 
-    def show_all_children(self):
+    def return_all_children(self):
         if not self.has_children():
-            return str(self)
+            self.code_dict[self.letter] = self.code
+            self.node_list.append(self)
+            return self
         else:
-            return self.left.show_all_children(), self.right.show_all_children()
+            return [self.left.return_all_children(), self.right.return_all_children()]
+
+    def add_code(self, oneorzero='0'):
+        if not self.has_children():
+            self.code = oneorzero + self.code
+        else:
+            self.left.add_code(oneorzero)
+            self.right.add_code(oneorzero)
 
 
+# input_string = "Hello my world!"
+input_string = input("Type the string that contains only 3 words: ")
 
-
-# s = input("Type the string that contains only 3 words (neither greater no less): ").lower()
-s = "Hello my world!"
-
-if len(s.split()) != 3:
-    print(f"Your string contains {len(s.split())} words - but necessary  only 3")
+if len(input_string.split()) != 3:
+    print(f"Your string contains {len(input_string.split())} words - but necessary  only 3")
     quit()
 else:
-    seq = deque(sorted(Counter(s).items(), key=lambda item: item[1]))
-
+    seq = deque(sorted(Counter(input_string).items(), key=lambda item: item[1]))
+    length_of_seq = len(seq)
     for i in range(len(seq)):
         node = seq[i]
         seq[i] = Node(node[1], node[0])
 
-    print(seq)
+    # print(seq)
 
     while len(seq) > 1:
         left = seq.popleft()
         right = seq.popleft()
-        #     print(Node(left[1], left[0]))
-        #     print(Node(right[1], right[0]))
         temp_node = left + right
         pos = 0
         for i in range(len(seq)):
@@ -92,6 +94,13 @@ else:
                 pos = i + 1
 
         seq.insert(pos, temp_node)
+        # print(seq)
 
-    print(seq[0].show_all_children())
+    list_nodes = seq[0].return_all_children()
+    # print(seq[0].code_dict)
 
+    result = ""
+    for letter in input_string:
+        result = f'{result} {seq[0].code_dict[letter]}'
+
+    print(f'Your encoding string:{result}')
